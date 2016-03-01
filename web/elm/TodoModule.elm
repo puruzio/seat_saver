@@ -53,7 +53,7 @@ update action model =
 -- "Signal.Address Action" is the first argument
 view: Signal.Address Action -> Model -> Html
 view address model =
-  --Html.text "Woo hoo, 오제석의 첫번째 페이지"
+ 
   -- "(seatItem address) is a partial function which has some arguments prefilled"
   ul [ ] (List.map (todoItem address) model)
 
