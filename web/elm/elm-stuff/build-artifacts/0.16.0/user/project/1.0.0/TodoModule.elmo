@@ -1,0 +1,49 @@
+Elm.TodoModule = Elm.TodoModule || {};
+Elm.TodoModule.make = function (_elm) {
+   "use strict";
+   _elm.TodoModule = _elm.TodoModule || {};
+   if (_elm.TodoModule.values) return _elm.TodoModule.values;
+   var _U = Elm.Native.Utils.make(_elm),
+   $Basics = Elm.Basics.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Effects = Elm.Effects.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Http = Elm.Http.make(_elm),
+   $Json$Decode = Elm.Json.Decode.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Task = Elm.Task.make(_elm);
+   var _op = {};
+   var todoItem = F2(function (address,todo) {    return A2($Html.li,_U.list([]),_U.list([$Html.text(todo.task)]));});
+   var view = F2(function (address,model) {    return A2($Html.ul,_U.list([]),A2($List.map,todoItem(address),model));});
+   var update = F2(function (action,model) {
+      var _p0 = action;
+      var newModel = A2($Maybe.withDefault,model,_p0._0);
+      return {ctor: "_Tuple2",_0: newModel,_1: $Effects.none};
+   });
+   var SetTodos = function (a) {    return {ctor: "SetTodos",_0: a};};
+   var Todo = F5(function (a,b,c,d,e) {    return {task: a,task_id: b,project: c,duedates: d,closed: e};});
+   var decodeTodos = function () {
+      var todo = A6($Json$Decode.object5,
+      F5(function (task,taskId,project,duedates,closed) {    return A5(Todo,task,taskId,project,duedates,closed);}),
+      A2($Json$Decode._op[":="],"task",$Json$Decode.string),
+      A2($Json$Decode._op[":="],"taskId",$Json$Decode.string),
+      A2($Json$Decode._op[":="],"project",$Json$Decode.string),
+      A2($Json$Decode._op[":="],"duedates",$Json$Decode.string),
+      A2($Json$Decode._op[":="],"closed",$Json$Decode.string));
+      return A2($Json$Decode.at,_U.list(["data"]),$Json$Decode.list(todo));
+   }();
+   var fetchTodos = $Effects.task(A2($Task.map,SetTodos,$Task.toMaybe(A2($Http.get,decodeTodos,"http://stickyreminder.appspot.com/griddata"))));
+   var init = {ctor: "_Tuple2",_0: _U.list([]),_1: fetchTodos};
+   return _elm.TodoModule.values = {_op: _op
+                                   ,Todo: Todo
+                                   ,init: init
+                                   ,SetTodos: SetTodos
+                                   ,update: update
+                                   ,view: view
+                                   ,todoItem: todoItem
+                                   ,fetchTodos: fetchTodos
+                                   ,decodeTodos: decodeTodos};
+};
