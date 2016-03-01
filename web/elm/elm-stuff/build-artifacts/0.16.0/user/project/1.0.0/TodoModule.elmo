@@ -24,7 +24,12 @@ Elm.TodoModule.make = function (_elm) {
       return {ctor: "_Tuple2",_0: newModel,_1: $Effects.none};
    });
    var SetTodos = function (a) {    return {ctor: "SetTodos",_0: a};};
-   var Todo = F5(function (a,b,c,d,e) {    return {task: a,task_id: b,project: c,duedates: d,closed: e};});
+   var init = function () {
+      var todos = _U.list([{task: "First task",taskId: "1",project: "First project",duedates: "1/1/2016",closed: "Closed"}
+                          ,{task: "2nd task",taskId: "2",project: "2nd project",duedates: "1/1/2016",closed: "Open"}]);
+      return {ctor: "_Tuple2",_0: todos,_1: $Effects.none};
+   }();
+   var Todo = F5(function (a,b,c,d,e) {    return {task: a,taskId: b,project: c,duedates: d,closed: e};});
    var decodeTodos = function () {
       var todo = A6($Json$Decode.object5,
       F5(function (task,taskId,project,duedates,closed) {    return A5(Todo,task,taskId,project,duedates,closed);}),
@@ -36,7 +41,6 @@ Elm.TodoModule.make = function (_elm) {
       return A2($Json$Decode.at,_U.list(["data"]),$Json$Decode.list(todo));
    }();
    var fetchTodos = $Effects.task(A2($Task.map,SetTodos,$Task.toMaybe(A2($Http.get,decodeTodos,"http://stickyreminder.appspot.com/griddata"))));
-   var init = {ctor: "_Tuple2",_0: _U.list([]),_1: fetchTodos};
    return _elm.TodoModule.values = {_op: _op
                                    ,Todo: Todo
                                    ,init: init

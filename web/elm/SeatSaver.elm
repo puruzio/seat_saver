@@ -20,26 +20,26 @@ type alias Model =
 
 init: (Model, Effects Action) --an Effect that will result in an Action
 init  =
-  ([], fetchSeats)
+  --([], fetchSeats)
 
-  -- let
-  --   seats =
-  --     [ { seatNo = 1, occupied = False}
-  --     , { seatNo = 2, occupied = False}
-  --     , { seatNo = 3, occupied = False}
-  --     , { seatNo = 4, occupied = False }
-  --     , { seatNo = 5, occupied = False }
-  --     , { seatNo = 6, occupied = False }
-  --     , { seatNo = 7, occupied = False }
-  --     , { seatNo = 8, occupied = False }
-  --     , { seatNo = 9, occupied = False }
-  --     , { seatNo = 10, occupied = False }
-  --     , { seatNo = 11, occupied = False }
-  --     , { seatNo = 12, occupied = False }
-  --     , { seatNo = 12, occupied = False }
-  --     ]
-  -- in
-  --   (seats, Effects.none) --no Action to send at this point so we use a null Effect
+    let
+      seats =
+        [ { seatNo = 1, occupied = False}
+        , { seatNo = 2, occupied = False}
+        , { seatNo = 3, occupied = False}
+        , { seatNo = 4, occupied = False }
+        , { seatNo = 5, occupied = False }
+        , { seatNo = 6, occupied = False }
+        , { seatNo = 7, occupied = False }
+        , { seatNo = 8, occupied = False }
+        , { seatNo = 9, occupied = False }
+        , { seatNo = 10, occupied = False }
+        , { seatNo = 11, occupied = False }
+        , { seatNo = 12, occupied = False }
+        , { seatNo = 12, occupied = False }
+        ]
+    in
+      (seats, Effects.none) --no Action to send at this point so we use a null Effect
 
 ---Update --------------------------------------------
 type Action
@@ -68,7 +68,7 @@ update action model =
 -- "Signal.Address Action" is the first argument
 view: Signal.Address Action -> Model -> Html
 view address model =
-  --Html.text "Woo hoo, 오제석의 첫번째 페이지"
+  --Html.text "Woo hoo,"
   -- "(seatItem address) is a partial function which has some arguments prefilled"
   ul [ class "seats"] (List.map (seatItem address) model)
 

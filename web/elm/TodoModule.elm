@@ -16,7 +16,7 @@ type alias Model =
 
 type alias Todo =
   { task : String
-  , task_id: String
+  , taskId: String
   , project: String
   , duedates : String
   , closed: String
@@ -25,26 +25,15 @@ type alias Todo =
 
 init: (Model, Effects Action) --an Effect that will result in an Action
 init =
- ([], fetchTodos)
+ --([], fetchTodos)
 
-  -- let
-  --   seats =
-  --     [ { seatNo = 1, occupied = False}
-  --     , { seatNo = 2, occupied = False}
-  --     , { seatNo = 3, occupied = False}
-  --     , { seatNo = 4, occupied = False }
-  --     , { seatNo = 5, occupied = False }
-  --     , { seatNo = 6, occupied = False }
-  --     , { seatNo = 7, occupied = False }
-  --     , { seatNo = 8, occupied = False }
-  --     , { seatNo = 9, occupied = False }
-  --     , { seatNo = 10, occupied = False }
-  --     , { seatNo = 11, occupied = False }
-  --     , { seatNo = 12, occupied = False }
-  --     , { seatNo = 12, occupied = False }
-  --     ]
-  -- in
-  --   (seats, Effects.none) --no Action to send at this point so we use a null Effect
+   let
+     todos =
+       [ { task = "First task", taskId = "1", project = "First project", duedates = "1/1/2016", closed = "Closed"}
+        ,{ task = "2nd task", taskId = "2", project = "2nd project", duedates = "1/1/2016", closed = "Open"}
+       ]
+   in
+     (todos, Effects.none) --no Action to send at this point so we use a null Effect
 
 ---Update --------------------------------------------
 type Action

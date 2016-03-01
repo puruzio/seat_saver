@@ -11024,6 +11024,22 @@ Elm.SeatSaver.make = function (_elm) {
       _U.list([$Html.text(jasonFunc($Basics.toString(seat.seatNo)))]));
    });
    var view = F2(function (address,model) {    return A2($Html.ul,_U.list([$Html$Attributes.$class("seats")]),A2($List.map,seatItem(address),model));});
+   var init = function () {
+      var seats = _U.list([{seatNo: 1,occupied: false}
+                          ,{seatNo: 2,occupied: false}
+                          ,{seatNo: 3,occupied: false}
+                          ,{seatNo: 4,occupied: false}
+                          ,{seatNo: 5,occupied: false}
+                          ,{seatNo: 6,occupied: false}
+                          ,{seatNo: 7,occupied: false}
+                          ,{seatNo: 8,occupied: false}
+                          ,{seatNo: 9,occupied: false}
+                          ,{seatNo: 10,occupied: false}
+                          ,{seatNo: 11,occupied: false}
+                          ,{seatNo: 12,occupied: false}
+                          ,{seatNo: 12,occupied: false}]);
+      return {ctor: "_Tuple2",_0: seats,_1: $Effects.none};
+   }();
    var Seat = F2(function (a,b) {    return {seatNo: a,occupied: b};});
    var decodeSeats = function () {
       var seat = A3($Json$Decode.object2,
@@ -11033,7 +11049,6 @@ Elm.SeatSaver.make = function (_elm) {
       return A2($Json$Decode.at,_U.list(["data"]),$Json$Decode.list(seat));
    }();
    var fetchSeats = $Effects.task(A2($Task.map,SetSeats,$Task.toMaybe(A2($Http.get,decodeSeats,"http://localhost:4000/api/seats"))));
-   var init = {ctor: "_Tuple2",_0: _U.list([]),_1: fetchSeats};
    return _elm.SeatSaver.values = {_op: _op
                                   ,Seat: Seat
                                   ,init: init
@@ -11072,7 +11087,12 @@ Elm.TodoModule.make = function (_elm) {
       return {ctor: "_Tuple2",_0: newModel,_1: $Effects.none};
    });
    var SetTodos = function (a) {    return {ctor: "SetTodos",_0: a};};
-   var Todo = F5(function (a,b,c,d,e) {    return {task: a,task_id: b,project: c,duedates: d,closed: e};});
+   var init = function () {
+      var todos = _U.list([{task: "First task",taskId: "1",project: "First project",duedates: "1/1/2016",closed: "Closed"}
+                          ,{task: "2nd task",taskId: "2",project: "2nd project",duedates: "1/1/2016",closed: "Open"}]);
+      return {ctor: "_Tuple2",_0: todos,_1: $Effects.none};
+   }();
+   var Todo = F5(function (a,b,c,d,e) {    return {task: a,taskId: b,project: c,duedates: d,closed: e};});
    var decodeTodos = function () {
       var todo = A6($Json$Decode.object5,
       F5(function (task,taskId,project,duedates,closed) {    return A5(Todo,task,taskId,project,duedates,closed);}),
@@ -11084,7 +11104,6 @@ Elm.TodoModule.make = function (_elm) {
       return A2($Json$Decode.at,_U.list(["data"]),$Json$Decode.list(todo));
    }();
    var fetchTodos = $Effects.task(A2($Task.map,SetTodos,$Task.toMaybe(A2($Http.get,decodeTodos,"http://stickyreminder.appspot.com/griddata"))));
-   var init = {ctor: "_Tuple2",_0: _U.list([]),_1: fetchTodos};
    return _elm.TodoModule.values = {_op: _op
                                    ,Todo: Todo
                                    ,init: init
