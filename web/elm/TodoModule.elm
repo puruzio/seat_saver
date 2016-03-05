@@ -69,7 +69,7 @@ todoItem address todo =
 ------Effects ----------------------------------------
 fetchTodos: Effects Action
 fetchTodos =
-  Http.get decodeTodos "http://stickyreminder.appspot.com/griddata"
+  Http.get decodeTodos "http://app.appspot.com/griddata"
     |> Task.toMaybe
     |> Task.map SetTodos
     |> Effects.task
